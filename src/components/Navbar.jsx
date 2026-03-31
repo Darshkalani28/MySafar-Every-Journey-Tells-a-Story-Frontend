@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <div>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar navbar-expand-lg border-bottom bg-body-tertiary" style={{ backgroundColor: "rgb(255, 255, 255)" }}>
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
             MySafar
@@ -19,34 +19,7 @@ const Navbar = () => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/">
-                  Explore
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/destination">
-                  Destination
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/stories">
-                  Stories
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/bucketlist">
-                  Bucketlist
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/wishlist">
-                  Wishlist
-                </Link>
-              </li>
-            </ul>
+          
             {/* <form className="d-flex" role="search">
               <input
                 className="form-control me-2"
@@ -59,7 +32,6 @@ const Navbar = () => {
               </button>
             </form> */}
           </div>
-        </div>
       </nav>
     </div>
   );

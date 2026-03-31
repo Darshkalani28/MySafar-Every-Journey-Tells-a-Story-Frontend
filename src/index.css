@@ -108,4 +108,28 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
-} */
+}
+ */
+.card .dropdown {
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.card:hover .dropdown {
+  opacity: 1;
+}
+
+body{
+  background-color: #e9e9e9b9;
+}
+
+.btn1{
+  color: #0f4980;
+  font-weight: 600;
+  outline-color: #0F4980;
+  border: 1px solid #0F4980;
+}
+.btn1:hover {
+  background-color: #0f4980;
+  color: #ffffff;
+}
