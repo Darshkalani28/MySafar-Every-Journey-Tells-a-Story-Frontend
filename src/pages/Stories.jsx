@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import API from "../../services/api";
+import API from "../services/api";
+import StoryFormModal from "../components/StoryFormModal";
+import StoryEditModal from "../components/StoryEditModal";
+import WishlistModal from "../components/WishlistModal";
+import BucketlistModal from "../components/BucketlistModal";
 
 const Stories = (props) => {
   const navigate = useNavigate();
   const { destinationId } = useParams();
   const [stories, setStories] = useState([]);
+  const [editingStory, setEditingStory] = useState(null);
 
   const fetchStories = async () => {
     try {
@@ -36,6 +41,7 @@ const Stories = (props) => {
       console.log("Error deleting Stories:", error);
     }
   };
+
   return (
     <div className="container">
       <div className="d-flex justify-content-between align-items-center my-4">
@@ -47,32 +53,34 @@ const Stories = (props) => {
         </div>
         <div className="d-flex align-items-center gap-2">
           
-          {/* <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#wishlistModal">
-            Launch demo modal
-          </button> */}
-  
-
-          <Link to={`/wishlist/${destinationId}`}>
-            <button className="btn1 rounded-pill px-4 py-2" data-bs-toggle="modal" data-bs-target="#wishlistModal">
-              Wishlist
-            </button>
-
-          </Link>
+          <button 
+            className="btn1 rounded-pill px-4 py-2"
+            data-bs-toggle="modal"
+            data-bs-target="#wishlistDisplayModal"
+          >
+            Wishlist
+          </button>
     
-          <Link to={`/bucketlist/${destinationId}`}>
-            <button className="btn1 rounded-pill px-4 py-2">
-              Bucketlist
-            </button>
-          </Link>
-          <Link to={`/create-stories/${destinationId}`}>
-            <button className="btn1 rounded-pill px-4 py-2" style={{ fontWeight: 600, background: "#0F4980", color: "#e9e9e9" }}>
-              + New Stories
-            </button>
-          </Link>
+          <button 
+            className="btn1 rounded-pill px-4 py-2"
+            data-bs-toggle="modal"
+            data-bs-target="#bucketlistDisplayModal"
+          >
+            Bucketlist
+          </button>
+          <button 
+            className="btn1 rounded-pill px-4 py-2" 
+            style={{ fontWeight: 600, background: "#0F4980", color: "#e9e9e9" }}
+            data-bs-toggle="modal"
+            data-bs-target="#addStoryModal"
+          >
+            + New Stories
+          </button>
         </div>
       </div>
       <div className="row row-cols-1 row-cols-md-3 g-4">
         {stories.map((item) => (
+
           <div className="col" key={item._id}>
             <div
               className="card h-100 shadow-sm border-0"
@@ -80,15 +88,9 @@ const Stories = (props) => {
             >
               {/* IMAGE SECTION WITH BADGE */}
               <div className="position-relative">
-                <Link
-                  to={`/wishlist/${destinationId}`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
+
                   <img
-                    src={
-                      item.coverImage ||
-                      "https://techcrunch.com/wp-content/uploads/2024/05/Minecraft-keyart.jpg?resize=1200,720"
-                    }
+                    src={ item.coverImage || "travel.jpg" }
                     style={{
                       height: 225,
                       borderTopLeftRadius: 15,
@@ -99,13 +101,8 @@ const Stories = (props) => {
                     className="card-img-top"
                     alt="Stories"
                   />
-                </Link>
               </div>
 
-              <Link
-                to={`/wishlist/${destinationId}`}
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
                 {/* Body */}
                 <div className="card-body pb-3" style={{ minHeight: 200 }}>
                   <div className="d-flex justify-content-between align-items-center mb-2">
@@ -121,12 +118,14 @@ const Stories = (props) => {
                       </button>
                       <ul className="dropdown-menu dropdown-menu-end">
                         <li>
-                          <Link
+                          <button
                             className="dropdown-item"
-                            to={`/update-stories/${destinationId}/${item._id}`}
+                            onClick={() => setEditingStory(item)}
+                            data-bs-toggle="modal"
+                            data-bs-target="#editStoryModal"
                           >
                             ✏️ Edit
-                          </Link>
+                          </button>
                         </li>
                         <li>
                           <button
@@ -154,11 +153,37 @@ const Stories = (props) => {
                     </small>
                   </p>
                 </div>
-              </Link>
             </div>
           </div>
-        ))}
+))}
       </div>
+
+      {/* REUSABLE STORY FORM MODAL COMPONENT */}
+      <StoryFormModal 
+        destinationId={destinationId}
+        onSuccess={fetchStories}
+        modalId="addStoryModal"
+      />
+
+      {/* REUSABLE STORY EDIT MODAL COMPONENT */}
+      <StoryEditModal 
+        item={editingStory}
+        storiesId={editingStory?._id}
+        onSuccess={fetchStories}
+        modalId="editStoryModal"
+      />
+
+      {/* WISHLIST DISPLAY MODAL COMPONENT */}
+      <WishlistModal 
+        destinationId={destinationId}
+        modalId="wishlistDisplayModal"
+      />
+
+      {/* BUCKETLIST DISPLAY MODAL COMPONENT */}
+      <BucketlistModal 
+        destinationId={destinationId}
+        modalId="bucketlistDisplayModal"
+      />
     </div>
   );
 };
