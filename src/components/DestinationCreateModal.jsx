@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import API from "../services/api.js";
+import {
+  Lock,
+  Globe,
+} from "lucide-react";
 
 const DestinationCreateModal = ({ onSuccess, modalId = "addDestinationModal" }) => {
   const [image, setImage] = useState(null);
@@ -11,7 +15,7 @@ const DestinationCreateModal = ({ onSuccess, modalId = "addDestinationModal" }) 
     startDate: "",
     endDate: "",
   });
-
+  
   // Handle text inputs
   const handleChange = (e) => {
     setFormdata({
@@ -24,14 +28,14 @@ const DestinationCreateModal = ({ onSuccess, modalId = "addDestinationModal" }) 
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
   };
-
+  
   // Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     try {
       const data = new FormData();
-
+      
       // append text fields
       Object.keys(formData).forEach((key) => {
         data.append(key, formData[key]);
@@ -44,7 +48,7 @@ const DestinationCreateModal = ({ onSuccess, modalId = "addDestinationModal" }) 
       if (image) {
         data.append("coverImage", image);
       }
-
+      
       const res = await API.post("/destination/create-destination", data, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -93,7 +97,7 @@ const DestinationCreateModal = ({ onSuccess, modalId = "addDestinationModal" }) 
       aria-labelledby="addDestinationLabel"
       aria-hidden="true"
     >
-      <div className="modal-dialog modal-dialog-centered">
+      <div className="modal-dialog modal-dialog-centered modal-lg">
         <div className="modal-content" style={{ borderRadius: 15 }}>
           {/* MODAL HEADER */}
           <div className="modal-header border-0 pb-0">
@@ -130,7 +134,7 @@ const DestinationCreateModal = ({ onSuccess, modalId = "addDestinationModal" }) 
                     onChange={(e) => setIsPublic(e.target.checked)}
                   />
                   <label className="form-check-label" htmlFor="isPublicSwitch">
-                    {isPublic ? "Public 🌍" : "Private 🔒"}
+                    {isPublic ? "Public" && <Globe style={{marginLeft: "5px"}} color="#0F4980"/>  : "Private" && <Lock style={{marginLeft: "5px"}} color="#0F4980"/>}
                   </label>
                 </div>
               </div>

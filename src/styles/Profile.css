@@ -1,0 +1,102 @@
+.profile-page {
+  background: #e9e9e9b9;
+  min-height: 100vh;
+  padding: 40px 0;
+  max-width: 900px;   /* 👈 center + control width */
+  margin: auto;       /* 👈 center horizontally */
+}
+
+/* Profile Container Wrapper */
+.profile-container {
+  width: 100%;
+}
+
+/* Profile Card */
+.profile-card {
+  border-radius: 20px;
+  background: #ffffff;
+  padding: 25px;
+  margin-bottom: 20px;   /* 👈 spacing */
+}
+
+/* Avatar smaller */
+.profile-avatar-img,
+.profile-avatar-placeholder {
+  width: 150px;
+  height: 150px;
+  font-size: 20px;
+  border-radius: 50%;
+  object-fit:contain;
+}
+
+/* Stats Section */
+.profile-stat-card {
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 15px;         /* 👈 smaller */
+  transition: 0.3s;
+}
+
+.profile-stat-card h4 {
+  font-size: 18px;       /* 👈 smaller numbers */
+  margin: 5px 0;
+}
+
+.profile-stat-card p {
+  font-size: 13px;
+}
+
+.profile-stat-icon {
+  font-size: 18px;       /* 👈 smaller icon */
+}
+
+/* Reduce spacing between boxes */
+.row.g-3 {
+  --bs-gutter-y: 10px;
+  --bs-gutter-x: 10px;
+}
+
+/* About + Member */
+.card {
+  border-radius: 12px;
+  border: none;
+  padding: 10px;
+}
+
+/* Member section */
+.profile-calendar-icon {
+  font-size: 20px;
+}
+
+/* Edit Form Container */
+.profile-edit-form-container {
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-edit-form-container h5 {
+  color: #0F4980;
+  font-weight: 600;
+}
+
+/* Avatar Upload Section */
+.profile-avatar-upload-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 2px dashed #0F4980;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+
+.profile-avatar-upload-section .btn {
+  margin-top: 10px;
+}
+
+/* Avatar Wrapper */
+.profile-avatar-wrapper {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}

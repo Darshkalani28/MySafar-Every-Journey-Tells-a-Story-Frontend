@@ -1,8 +1,29 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import API from "../services/api";
 const Navbar = () => {
+  const navigate = useNavigate();
+  const [avatara, setAvatar] = useState();
+  const userId = localStorage.getItem("userId");
+
+  const users = async (params) => {
+    const res = await API.get(`/user/current-user/${userId}`);
+    setAvatar(res.data.data.avatar)
+  }
+  users();
+  const profileImage = avatara || "travel.jpg";
+
+
+  const handleLogout = async () => {
+    await API.post("user/logOut");
+
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("userId");
+    navigate("/login");
+  }
+
   return (
-    <div>
+    <div className="mb-5">
       <nav
         className="navbar navbar-expand-lg border-bottom bg-body-tertiary"
         style={{ backgroundColor: "rgb(255, 255, 255)" }}
@@ -43,22 +64,10 @@ const Navbar = () => {
                   Destination
                 </Link>
               </li>
-              <li className="nav-item dropdown">
-                <Link className="nav-link dropdown-toggle" to="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Profile
-                </Link>
-                <ul className="dropdown-menu">
-                  {/* change profile route after creating profile page */}
-                  <li><Link className="dropdown-item" to="/">View Profile</Link></li>
-                  <li><Link className="dropdown-item" to="/">Another action</Link></li>
-                  <li><hr className="dropdown-divider"/></li>
-                  <li><Link className="dropdown-item" to="/">Logout</Link></li>
-                </ul>
-              </li>
             </ul>
 
 
-            {/* <form className="d-flex" role="search">
+            <form className="d-flex" role="search">
               <input
               className="form-control me-2"
               type="search"
@@ -68,7 +77,32 @@ const Navbar = () => {
               <button className="btn btn-outline-success" type="submit">
               Search
               </button>
-              </form> */}
+              </form>
+
+        <div className="profile ms-3">
+        <img
+          src={profileImage}
+          alt="profile"
+          className="rounded-circle dropdown-toggle"
+          width="40"
+          height="40"
+          style={{ cursor: "pointer", objectFit: "contain" }}
+          data-bs-toggle="dropdown"
+        />
+
+        <ul className="dropdown-menu dropdown-menu-end">
+          <li>
+            <Link className="dropdown-item" to="/profile">
+              👤 My Profile
+            </Link>
+          </li>
+          <li>
+            <button className="dropdown-item text-danger" onClick={handleLogout}>
+              🚪 Logout
+            </button>
+          </li>
+        </ul>
+        </div>
           </div>
         </div>
       </nav>

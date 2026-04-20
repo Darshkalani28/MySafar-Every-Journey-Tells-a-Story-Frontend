@@ -5,10 +5,10 @@ const API = axios.create({
   withCredentials: true,
 });
 
-// Attach token (uf stored in localStorage)
+// Attach token to requests
 API.interceptors.request.use((req) => {
-  // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWIxNWM5MGIzOGU1MzgyNGY3NzUwZDUiLCJlbWFpbCI6ImFkbWluQHRlc3QuY29tIiwiZnVsbG5hbWUiOiJBZG1pbiIsImlhdCI6MTc3MzgyNjEyNCwiZXhwIjoxNzczOTEyNTI0fQ.rV_8RuJyFnhgqp6vk18DO1IKhOTrEEns73nFAMNecQo";
-  const token = localStorage.getItem("token");
+  // Fixed: Use 'accessToken' instead of 'token' to match backend response
+  const token = localStorage.getItem("accessToken");
   if (token) {
     req.headers.Authorization = `Bearer ${token}`;
   }

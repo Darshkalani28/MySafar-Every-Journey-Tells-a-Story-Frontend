@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import API from "../services/api.js";
 import DestinationEditModal from "../components/DestinationEditModal.jsx";
 import DestinationCreateModal from "../components/DestinationCreateModal.jsx";
+import { MapPin, Delete, Calendar, Edit } from "lucide-react";
 
 const Destination = () => {
   const navigate = useNavigate();
@@ -73,7 +74,7 @@ const Destination = () => {
                 {/* IMAGE SECTION WITH STORY BADGE + 3 DOT MENU */}
                 <div className="position-relative">
                   <Link
-                    to={`/stories/${item._id}`}
+                    to={`/detail/${item._id}`}
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
                     <img
@@ -99,7 +100,7 @@ const Destination = () => {
                 <div className="card-body pb-3" style={{ Height: 200 }}>
                   <div className="d-flex justify-content-between align-items-center mb-2">
                     <Link
-                      to={`/stories/${item._id}`}
+                      to={`/detail/${item._id}`}
                       style={{ textDecoration: "none", color: "inherit" }}
                     >
                       <h5 className="card-title mb-0">{item.title}</h5>
@@ -109,7 +110,8 @@ const Destination = () => {
                         className="btn1 btn-sm"
                         style={{
                           boxShadow: "0 0 8px rgba(0,0,0,0.2)",
-                          borderRadius: "25%",
+                          borderRadius: "30%",
+                          padding: "2px"
                         }}
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
@@ -124,7 +126,7 @@ const Destination = () => {
                             data-bs-toggle="modal"
                             data-bs-target="#editDestinationModal"
                           >
-                            ✏️ Edit
+                            <Edit size={15} color="#0F4980"/> Edit
                           </button>
                         </li>
                         <li>
@@ -132,25 +134,25 @@ const Destination = () => {
                             className="dropdown-item text-danger"
                             onClick={() => handleDelete(item._id)}
                           >
-                            🗑 Delete
+                            <Delete size={15} color="#0F4980"/> Delete
                           </button>
                         </li>
                       </ul>
                     </div>
                   </div>
                   <Link
-                    to={`/stories/${item._id}`}
+                    to={`/detail/${item._id}`}
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
                     <p className="card-text text-muted mb-2">{item.summary}</p>
                     <p className="card-text mb-2">
                       <small className="text-body-secondary">
-                        📍 {item.location}
+                        <MapPin size={18} color="#0F4980"/> {item.location}
                       </small>
                     </p>
                     <p className="card-text">
                       <small className="text-body-secondary">
-                        📅 {item.startDate?.split("T")[0] || ""} -{" "}
+                        <Calendar size={18} color="#0F4980"/> {item.startDate?.split("T")[0] || ""} -{" "}
                         {item.endDate?.split("T")[0] || ""}
                       </small>
                     </p>
